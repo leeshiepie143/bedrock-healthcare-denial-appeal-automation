@@ -36,3 +36,6 @@ html-report/
 
 # CDK context
 cdk.context.json
+
+# CDK synthesized output
+cdk.out/

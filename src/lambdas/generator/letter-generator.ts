@@ -280,8 +280,12 @@ export function buildUserPrompt(input: LetterGenerationInput, template: PayerTem
 ${denialReasons}
 ${rarcReasons ? `### RARC Codes:\n${rarcReasons}` : ''}`;
 
-  // Clinical evidence section
-  const evidenceCitations = evidencePackage.evidence_items.map((item) => {
+  // Clinical evidence section (cap at top 10 by relevance to stay within context window)
+  const topEvidence = [...evidencePackage.evidence_items]
+    .sort((a, b) => b.relevance_score - a.relevance_score)
+    .slice(0, 10);
+
+  const evidenceCitations = topEvidence.map((item) => {
     const entities = item.extracted_entities.map(
       (e) => `    - ${e.text} (${e.category}${e.icd_code ? `, ICD: ${e.icd_code}` : ''}, confidence: ${e.confidence})`
     ).join('\n');

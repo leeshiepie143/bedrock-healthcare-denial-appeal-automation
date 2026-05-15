@@ -132,8 +132,8 @@ export class GuardrailsStack extends cdk.Stack {
         regexesConfig: [
           {
             name: 'unrelated-patient-identifier',
-            description: 'Blocks input containing patient identifiers that do not match the current claim context. Matches common patient ID formats (MRN patterns).',
-            pattern: '(?i)\\b(?:patient|mrn|medical record)\\s*(?:id|number|#)?\\s*[:=]?\\s*[A-Z0-9]{6,20}\\b',
+            description: 'Blocks input containing patient identifiers in free-text queries that do not appear to be part of structured clinical evidence. Only matches when preceded by common query patterns (e.g., "look up patient", "find MRN").',
+            pattern: '(?i)\\b(?:look\\s*up|find|search|query|retrieve)\\s+(?:patient|mrn|medical record)\\s*(?:id|number|#)?\\s*[:=]?\\s*[A-Z0-9]{6,20}\\b',
             action: 'BLOCK',
           },
         ],

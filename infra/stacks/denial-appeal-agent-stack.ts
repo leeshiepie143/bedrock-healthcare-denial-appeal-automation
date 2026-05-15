@@ -72,27 +72,27 @@ export class DenialAppealAgentStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 
-    // GSI1: claim_id (PK), tenant_id (SK) — for claim lookup
+    // GSI1: GSI1PK (claim_id value), GSI1SK (tenant_id value) — for claim lookup
     this.denialAppealsTable.addGlobalSecondaryIndex({
       indexName: 'GSI1',
-      partitionKey: { name: 'claim_id', type: dynamodb.AttributeType.STRING },
-      sortKey: { name: 'tenant_id', type: dynamodb.AttributeType.STRING },
+      partitionKey: { name: 'GSI1PK', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'GSI1SK', type: dynamodb.AttributeType.STRING },
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
-    // GSI2: payer_reason (PK: `${payer_id}#${denial_reason_code}`), outcome_type (SK) — for analytics
+    // GSI2: GSI2PK (`${payer_id}#${denial_reason_code}`), GSI2SK (outcome_type) — for analytics
     this.denialAppealsTable.addGlobalSecondaryIndex({
       indexName: 'GSI2',
-      partitionKey: { name: 'payer_reason', type: dynamodb.AttributeType.STRING },
-      sortKey: { name: 'outcome_type', type: dynamodb.AttributeType.STRING },
+      partitionKey: { name: 'GSI2PK', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'GSI2SK', type: dynamodb.AttributeType.STRING },
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
-    // GSI3: status (PK), started_at (SK) — for workflow monitoring
+    // GSI3: GSI3PK (status), GSI3SK (started_at) — for workflow monitoring
     this.denialAppealsTable.addGlobalSecondaryIndex({
       indexName: 'GSI3',
-      partitionKey: { name: 'status', type: dynamodb.AttributeType.STRING },
-      sortKey: { name: 'started_at', type: dynamodb.AttributeType.STRING },
+      partitionKey: { name: 'GSI3PK', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'GSI3SK', type: dynamodb.AttributeType.STRING },
       projectionType: dynamodb.ProjectionType.ALL,
     });
 
