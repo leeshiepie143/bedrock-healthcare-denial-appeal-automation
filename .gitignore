@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+cdk.out/
+*.js
+*.d.ts
+*.js.map
+
+# Keep source TypeScript files
+!vitest.config.ts
+!jest.config.ts
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# LocalStack
+localstack-data/
+
+# Coverage
+coverage/
+html-report/
+
+# CDK context
+cdk.context.json
